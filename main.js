@@ -15,19 +15,10 @@ document.addEventListener("DOMContentLoaded", () => {
     currentDominant = getColor(video);
 
     if (currentDominant) {
-      const sides = ["top", "right", "bottom", "left"];
-      const halves = ["first", "second"];
-
-      sides.forEach((side) => {
-        halves.forEach((half) => {
-          const span = document.querySelector(`.side.${side} > .${half}`);
-          if (span) {
-            span.style.setProperty("--shadow", currentDominant[side][half]);
-          }
-        });
-      });
+      lightOrDark(currentDominant);
+      video.style.setProperty("--shadow", currentDominant);
     }
-  }, 100);
+  }, 1000);
 });
 
 function lightOrDark(color) {
@@ -57,6 +48,6 @@ function lightOrDark(color) {
   if (hsp > 127.5) {
     document.documentElement.style.setProperty("--background", "#303030");
   } else {
-    document.documentElement.style.setProperty("--background", "#EEE");
+    document.documentElement.style.setProperty("--background", "#ccc");
   }
 }

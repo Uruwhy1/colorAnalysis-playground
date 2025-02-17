@@ -1,9 +1,6 @@
 :root {
-  --background: transparent;
-  --shadow-top: transparent;
-  --shadow-bottom: transparent;
-  --shadow-right: transparent;
-  --shadow-left: transparent;
+  --shadow: transparent;
+  --background: black;
 }
 
 body {
@@ -16,7 +13,8 @@ body {
   display: grid;
   place-content: center;
 
-  background-color: #303030;
+  background-color: var(--background);
+  transition: background 0.1s;
 }
 
 body div {
@@ -29,43 +27,6 @@ video {
 
   position: relative;
   display: block;
-}
 
-.side {
-  --shadow: transparent;
-  position: absolute;
-  z-index: -1;
-
-  background-color: transparent;
-
-  > span {
-    display: block;
-    flex-grow: 1;
-  }
-
-  display: flex;
-  flex-grow: 1;
-}
-
-.side span {
-  box-shadow: 0 0px 1px 20px var(--shadow);
-}
-
-.top,
-.bottom {
-  width: 100%;
-  flex-direction: row;
-}
-.bottom {
-  bottom: 0;
-}
-
-.left,
-.right {
-  height: 100%;
-
-  flex-direction: column;
-}
-.right {
-  right: 0;
+  box-shadow: 0px 0px 60px 6px var(--shadow);
 }
