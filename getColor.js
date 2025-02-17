@@ -101,17 +101,24 @@ function getColor(video) {
 }
 
 function getDominantColorFromArray(colors) {
-  const colorCounts = {};
+  let totalRed = 0;
+  let totalGreen = 0;
+  let totalBlue = 0;
+
   for (const color of colors) {
-    colorCounts[color] = (colorCounts[color] || 0) + 1;
-  }
-  let dominantColor = null;
-  let maxCount = 0;
-  for (const color in colorCounts) {
-    if (colorCounts[color] > maxCount) {
-      dominantColor = color;
-      maxCount = colorCounts[color];
+    const rgbaMatch = color.match(/rgba\((\d+), (\d+), (\d+), [\d.]+\)/);
+    if (rgbaMatch) {
+      totalRed += parseInt(rgbaMatch[1], 10);
+      totalGreen += parseInt(rgbaMatch[2], 10);
+      totalBlue += parseInt(rgbaMatch[3], 10);
     }
   }
-  return dominantColor;
+
+  const numColors = colors.length;
+  const averageRed = Math.round(totalRed / numColors);
+  const averageGreen = Math.round(totalGreen / numColors);
+  const averageBlue = Math.round(totalBlue / numColors);
+
+  const mixedColor = `rgba(${averageRed}, ${averageGreen}, ${averageBlue}, 1)`;
+  return mixedColor;
 }
