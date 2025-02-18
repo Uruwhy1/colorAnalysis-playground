@@ -6,28 +6,29 @@ document.addEventListener("DOMContentLoaded", () => {
     .getUserMedia({ video: true })
     .then((stream) => {
       video.srcObject = stream;
+      setInterval(startAnalysing, 100);
     })
     .catch((error) => {
       alert("No camera 🤔.");
     });
 
-  setInterval(() => {
+  function startAnalysing() {
     currentDominant = getColor(video);
 
     if (currentDominant) {
       const sides = ["top", "right", "bottom", "left"];
-      const halves = ["first", "second"];
+      const parts = ["part-1", "part-2", "part-3", "part-4"];
 
       sides.forEach((side) => {
-        halves.forEach((half) => {
-          const span = document.querySelector(`.side.${side} > .${half}`);
+        parts.forEach((part) => {
+          const span = document.querySelector(`.side.${side} > .${part}`);
           if (span) {
-            span.style.setProperty("--shadow", currentDominant[side][half]);
+            span.style.setProperty("--shadow", currentDominant[side][part]);
           }
         });
       });
     }
-  }, 100);
+  }
 });
 
 function lightOrDark(color) {

@@ -20,26 +20,29 @@ function getColor(video) {
   const height = canvas.height;
 
   const sides = {
-    top: { first: [], second: [] },
-    right: { first: [], second: [] },
-    bottom: { first: [], second: [] },
-    left: { first: [], second: [] },
+    top: { 1: [], 2: [], 3: [], 4: [] },
+    right: { 1: [], 2: [], 3: [], 4: [] },
+    bottom: { 1: [], 2: [], 3: [], 4: [] },
+    left: { 1: [], 2: [], 3: [], 4: [] },
   };
 
   const topBottomSideWidth = height * 0.2;
   const leftRightSideWidth = width * 0.2;
 
-  // top
   for (let x = 0; x < width; x++) {
     for (let y = 0; y < topBottomSideWidth; y++) {
       let index = (y * width + x) * 4;
       const color = `rgba(${imageData[index]}, ${imageData[index + 1]}, ${
         imageData[index + 2]
       }, 0.7)`;
-      if (x < width / 2) {
-        sides.top.first.push(color);
+      if (x < width / 4) {
+        sides.top[1].push(color);
+      } else if (x < width / 2) {
+        sides.top[2].push(color);
+      } else if (x < (width * 3) / 4) {
+        sides.top[3].push(color);
       } else {
-        sides.top.second.push(color);
+        sides.top[4].push(color);
       }
     }
   }
@@ -51,10 +54,14 @@ function getColor(video) {
       const color = `rgba(${imageData[index]}, ${imageData[index + 1]}, ${
         imageData[index + 2]
       }, 0.7)`;
-      if (y < height / 2) {
-        sides.right.first.push(color);
+      if (y < height / 4) {
+        sides.right[1].push(color);
+      } else if (y < height / 2) {
+        sides.right[2].push(color);
+      } else if (y < (height * 3) / 4) {
+        sides.right[3].push(color);
       } else {
-        sides.right.second.push(color);
+        sides.right[4].push(color);
       }
     }
   }
@@ -66,10 +73,14 @@ function getColor(video) {
       const color = `rgba(${imageData[index]}, ${imageData[index + 1]}, ${
         imageData[index + 2]
       }, 0.7)`;
-      if (x < width / 2) {
-        sides.bottom.first.push(color);
+      if (x < width / 4) {
+        sides.bottom[1].push(color);
+      } else if (x < width / 2) {
+        sides.bottom[2].push(color);
+      } else if (x < (width * 3) / 4) {
+        sides.bottom[3].push(color);
       } else {
-        sides.bottom.second.push(color);
+        sides.bottom[4].push(color);
       }
     }
   }
@@ -81,10 +92,14 @@ function getColor(video) {
       const color = `rgba(${imageData[index]}, ${imageData[index + 1]}, ${
         imageData[index + 2]
       }, 0.7)`;
-      if (y < height / 2) {
-        sides.left.first.push(color);
+      if (y < height / 4) {
+        sides.left[1].push(color);
+      } else if (y < height / 2) {
+        sides.left[2].push(color);
+      } else if (y < (height * 3) / 4) {
+        sides.left[3].push(color);
       } else {
-        sides.left.second.push(color);
+        sides.left[4].push(color);
       }
     }
   }
@@ -92,8 +107,10 @@ function getColor(video) {
   const dominantColors = {};
   for (const side in sides) {
     dominantColors[side] = {
-      first: getDominantColorFromArray(sides[side].first),
-      second: getDominantColorFromArray(sides[side].second),
+      "part-1": getDominantColorFromArray(sides[side][1]),
+      "part-2": getDominantColorFromArray(sides[side][2]),
+      "part-3": getDominantColorFromArray(sides[side][3]),
+      "part-4": getDominantColorFromArray(sides[side][4]),
     };
   }
 
